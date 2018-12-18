@@ -1,0 +1,31 @@
+
+<h3>User Profile </h3>
+<font style="color:red;"><%= flash[:error] -%></font>
+<div style="border:1px solid black;padding:5px;">
+ <%= form_for :user,:url => { :action => 'update',:id =>@user.id} , :html => { :multipart => true } do |f|%>
+
+ <%= f.label :user_name %>:
+ <%= @user.user_name%> <br /><br />
+
+ <%= f.label :email, "Email Address" %>:
+ <%= @user.email%> <br /><br />
+
+
+  <%= f.label :name %>
+  <%= f.text_field :name%> <br /><br />
+
+  <%= f.label :age %>
+  <%= f.text_field :age %> <br /><br />
+
+  <%= f.label :address %>
+  <%= f.text_area :address %> <br /><br />
+  <%unless @user.prof_pic.nil?%>
+    <%= f.label :prof_pic, "Profile Picture" %><%= image_tag @user.prof_pic.url , style:"height: 100px; width: 100px;" %><br/><br/>
+  <%end%>
+  <%= f.label :prof_pic, "Add new picture" %>
+   <%= f.file_field :prof_pic %> <br /><br />
+
+  <%= f.submit "update" %>
+  <%-- <a href="/users/accountlist?id=<%=@user.id%>" style="text-decoration: none;"><input type="button" value="Cancel" /></a> --%>
+<% end %>
+</div>

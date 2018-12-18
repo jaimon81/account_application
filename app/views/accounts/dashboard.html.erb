@@ -1,0 +1,43 @@
+
+<span style="float:right;"><a href="/users/signout" style="text-decoration: none;"><input type="button" value="Logout" /></a></span>
+<span style="float:right;"><a href="/accounts/transactions?id=<%=@account_details.id%>" style="text-decoration: none;"><input type="button" value="New Transactions" /></a></span>
+
+
+<br/>
+<h3>Account Details</h3>
+<div id="wishDiv">
+  <table style="border:1px solid black;width:50%;text-align:center;">
+    <tr>
+      <th>Account Number</th>
+      <th>Account Type</th>
+      <th>Total Amount</th>
+    </tr>
+    <tr>
+      <td><%=@account_details.account_number%></td>
+      <td><%=@account_details.account_type%></td>
+      <td><%=@account_details.amount%></td>
+    </tr>
+  </table>
+</div>
+
+<br/>
+<h3>Transaction Details</h3>
+<div id="wishDiv">
+  <table style="border:1px solid black;width:50%;text-align:center;">
+    <tr>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Amount</th>
+    </tr>
+    <%@transactions.each do |tran|%>
+    <tr>
+      <td><%=tran.created_at.to_date%></td>
+      <td><%=tran.description%></td>
+      <td><%=tran.transaction_type%></td>
+      <td><%=tran.amount%></td>
+    </tr>
+    <%end%>
+
+  </table>
+</div>

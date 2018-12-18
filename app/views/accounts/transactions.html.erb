@@ -1,0 +1,48 @@
+<script type="text/javascript">
+  function setType(val) {
+    var dbt_amt = document.getElementById("transaction_amount").value;
+    if(dbt_amt == ""){
+      alert("Please enter amount.");
+      return false;
+    }
+    if(val == 1){
+      document.getElementById("transaction_transaction_type").value = 'credit';
+    }else if(val == 2){
+      var bal_amt = document.getElementById("amt").value;
+
+      if(parseFloat(dbt_amt) > parseFloat(bal_amt)){
+        alert("Your account has not enough balance.");
+        return false;
+      }
+      document.getElementById("transaction_transaction_type").value = 'debit';
+    }
+    return true;
+  }
+
+</script>
+
+<h3>New Transaction </h3>
+<font style="color:red;"><%= flash[:error] -%></font>
+<div style="border:1px solid black;padding:5px;">
+ <%= form_for :transaction,:url => { :action => 'create_transaction',:id =>@account.id} , :html => { :multipart => true } do |f|%>
+
+ Account Number:
+ <%= @account.account_number%> <br /><br />
+
+ Account Balance:
+ <%= @account.amount%> <br /><br />
+<input type="hidden" name="amt" id="amt" value="<%=@account.amount%>">
+
+  <%= f.label :description %>
+  <%= f.text_area :description%> <br /><br />
+
+  <%= f.label :amount %>
+  <%= f.text_field :amount %> <br /><br />
+
+ <%= f.hidden_field :transaction_type %>
+
+  <%= f.submit "Add Amount" , :onclick =>"return setType(1)" %>
+  <%= f.submit "Withdraw Amount", :onclick =>"return setType(2)"  %>
+ <a href="/accounts/dashboard?id=<%=@account.user_id%>" style="text-decoration: none;"><input type="button" value="Cancel" /></a>
+<% end %>
+</div>

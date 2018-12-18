@@ -1,0 +1,78 @@
+<script type="text/javascript">
+  function checkReg() {
+  	$uname = $("#user_user_name").val();
+  	$email = $("#user_email").val();
+  	$pwd = $("#user_password").val();
+  	$pconf = $("#user_password_confirmation").val();
+
+    $("#user_user_name").removeClass("form-error");
+    $("#user_email").removeClass("form-error");
+    $("#user_password").removeClass("form-error");
+    $("#user_password_confirmation").removeClass("form-error");
+    document.getElementById("errorDiv").style.display="none";
+
+  	if ($uname == "") {
+  		$("#user_user_name").addClass("form-error");
+  		return false;
+  	}
+  	if ($email == "") {
+  		$("#user_email").addClass("form-error");
+  		return false;
+  	}
+  	if ($pwd == "") {
+  		$("#user_password").addClass("form-error");
+  		return false;
+  	}
+  	if ($pconf == "") {
+  		$("#user_password_confirmation").addClass("form-error");
+  		return false;
+  	}
+
+    // var re = /(?=.*[a-z])(?=.*[A-Z])/;
+    // if(re.test($pwd))
+    // {
+    //   return true;
+    // }
+    // else
+    // {
+    // document.getElementById("errorDiv").style.display="block";
+    // document.getElementById("errorDiv").innerHTML="Password should have at least one upper and lower case letter.";
+    // return false;
+    // }
+  	return true;
+  }
+
+</script>
+<style>
+  .form-error {
+  	border-color: red !important;
+  	color: #ff4242 !important
+  }
+</style>
+<h3>User Registration Form</h3>
+<div style="border:1px solid black;padding:5px;">
+ <%= form_for :user,:url => { :action => 'register_user'}  do |f|%>
+ <p id="errorDiv" style="color:red;display:none;"></p>
+<div class="form-error" >
+  <ul>
+       <% @user.errors.full_messages.each do |msg| %>
+           <li><%= msg %></li>
+       <% end %>
+  </ul>
+</div>
+  <span style="color:red;"> * </span><%= f.label :user_name %>
+  <%= f.text_field :user_name%> <br /><br />
+
+  <span style="color:red;"> * </span><%= f.label :email, "Email Address" %>
+  <%= f.text_field :email ,:value =>""%> <br /><br />
+
+  <span style="color:red;"> * </span><%= f.label :password %>
+  <%= f.password_field :password ,:value=>""%> <br /><br />
+
+  <span style="color:red;"> * </span><%= f.label :password_confirmation, "Confirm Password" %>
+  <%= f.password_field :password_confirmation %> <br /><br />
+
+  <%= f.submit "Register", :onclick =>"return checkReg()" %>
+  <a href="/users/login" style="text-decoration: none;"><input type="button" value="Cancel" /></a>
+<% end %>
+</div>

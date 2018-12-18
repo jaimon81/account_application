@@ -1,0 +1,21 @@
+<div style="text-align:center;width:100%"><h3 >Account Login</h3></div>
+<div style="border:1px solid black;">
+  <font style="color:red;"><%= flash[:error] -%></font>
+<%= form_tag :id => "loginform", :controller=>"users", :action => "signin" do %>
+  <p><label class="required" for="Username">Username: </label>
+    <input type="text" name="user_name" id="user_name" value="" tabindex = "1"/></p>
+  <p><label class="required" for="Password">Password: </label>
+    <input type="password" name="password" id="password" value="" tabindex = "2"/></p>
+  <p><label>&nbsp;</label>
+  <%= submit_tag 'Login' %>
+  </p>
+<%end%>
+  <br />
+
+  <h3 class="caln">
+    New to the site?  Please <a href="/users/signup">Sign Up</a>
+  </h3>
+  <div class="clear"></div>
+
+
+</div>
